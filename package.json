@@ -16,6 +16,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@bem-react/classname": "^1.5.12",
     "gatsby": "^4.19.2",
     "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-image": "^2.20.0",

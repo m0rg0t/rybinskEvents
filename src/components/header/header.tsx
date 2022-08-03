@@ -1,4 +1,5 @@
 import React from "react";
+// @ts-ignore
 import LogoImg from "./logo.png";
 
 const Header = () => {
@@ -13,7 +14,7 @@ const Header = () => {
                         <div className="mbr-navbar__column mbr-navbar__column--s mbr-navbar__brand">
                     <span className="mbr-navbar__brand-link mbr-brand mbr-brand--inline">
                         <span className="mbr-brand__logo"><a href="#">
-                            <img src={LogoImg} />
+                            <img src={LogoImg} alt={"Рыбинск - день города 2022"} />
                         </a></span>
 
                     </span>
@@ -25,13 +26,13 @@ const Header = () => {
                                 <div className="mbr-navbar__column">
                                     <ul className="mbr-navbar__items mbr-navbar__items--right mbr-buttons mbr-buttons--freeze mbr-buttons--right btn-decorator mbr-buttons--active">
                                         <li className="mbr-navbar__item"><a className="mbr-buttons__link btn text-white"
-                                                                            href="#">ONE PAGE</a></li>
+                                                                            href="#search">Поиск</a></li>
                                         <li className="mbr-navbar__item"><a className="mbr-buttons__link btn text-white"
-                                                                            href="#">SLIDER</a></li>
+                                                                            href="#events">События</a></li>
                                         <li className="mbr-navbar__item"><a className="mbr-buttons__link btn text-white"
-                                                                            href="#">VIDEO BG</a></li>
+                                                                            href="#map">Карта</a></li>
                                         <li className="mbr-navbar__item"><a className="mbr-buttons__link btn text-white"
-                                                                            href="#">BLOG</a></li>
+                                                                            href="#contacts">Контакты</a></li>
                                     </ul>
                                 </div>
 

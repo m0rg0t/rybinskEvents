@@ -37,7 +37,19 @@ const config: GatsbyConfig = {
                 ],
                 display: 'swap'
             }
-        }]
+        },
+        {
+            resolve: `gatsby-plugin-manifest`,
+            options: {
+                name: `Рыбинск - день города 2022`,
+                short_name: `Рыбинск`,
+                start_url: `/`,
+                background_color: `#f7f0eb`,
+                theme_color: `#a2466c`,
+                display: `standalone`,
+            },
+        }
+    ]
 };
 
 export default config;
