@@ -1,7 +1,12 @@
 html {
   position: relative;
   min-height: 100%;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
 }
+* {
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+}
+
 .mbr-transparent {
   opacity: 0;
   filter: alpha(opacity=0);
@@ -250,7 +255,7 @@ html {
     margin-top: -14px;
     margin-bottom: 20px;
     font-size: 25px;
-    letter-spacing: 6px;
+    /*letter-spacing: 6px;*/
     line-height: 1.5em;
   }
   .content-2.col-2 .thumbnail h3 + h3 {
@@ -391,7 +396,7 @@ html {
 @media (max-width: 767px) {
   .content-2 .thumbnail h3 {
     font-size: 25px;
-    letter-spacing: 6px;
+    /*letter-spacing: 6px;*/
     line-height: 1.5em;
     margin-bottom: 20px;
     margin-top: -14px;
@@ -1710,7 +1715,7 @@ html {
   display: block;
   font-size: 25px;
   font-weight: bold;
-  letter-spacing: 6px;
+  /*letter-spacing: 6px;*/
   line-height: 1.5em;
   margin: 0;
 }

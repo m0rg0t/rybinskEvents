@@ -12,12 +12,13 @@ const EventCard: React.FC<IEventCardProps> = ({event}: IEventCardProps) => {
     return (
         <div className={className()}>
             <h3 className={className('Title')}>{event.title}</h3>
-            <div className={className('Image')}>
+            {/*<div className={className('Image')}>
                 {event.image && <img src={event.image} alt={event.title}/>}
-            </div>
+            </div>*/}
             <div className={className('Content')}>
-
-                <div className={className('Date')}>{event.date}</div>
+                <div className={className('Date')}><strong>Дата:</strong> {event.date}</div>
+                <div className={className('fromTime')}><strong>Начало:</strong> {event.fromTime}</div>
+                <div className={className('toTime')}><strong>Конец:</strong> {event.toTime}</div>
                 {event.description &&
                     <div className={className('Description')} dangerouslySetInnerHTML={{__html: event.description}}/>}
             </div>
