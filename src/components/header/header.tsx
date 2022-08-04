@@ -1,12 +1,13 @@
 import React from "react";
 // @ts-ignore
 import LogoImg from "./logo.png";
+import './header.css';
 
 const Header = () => {
     return (
         <>
         <section
-            className="mbr-navbar mbr-navbar--freeze mbr-navbar--absolute mbr-navbar--transparent mbr-navbar--sticky mbr-navbar--auto-collapse"
+            className="Header mbr-navbar mbr-navbar--freeze mbr-navbar--absolute mbr-navbar--transparent mbr-navbar--sticky mbr-navbar--auto-collapse"
             id="menu-93">
             <div className="mbr-navbar__section mbr-section">
                 <div className="mbr-section__container container">

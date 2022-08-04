@@ -1,0 +1,22 @@
+.Header .mbr-brand__logo img {
+    height: 50px;
+}
+
+.mbr-overlay {
+    background: url('/images/bg.jpg') 100%;
+}
+
+.Header, .Header .caption h3,
+Header *,
+#content5-92 .caption h3,
+#content5-92 P,
+#menu-93 .mbr-navbar__items a {
+    color: rgb(37, 37, 37);
+}
+
+.thumbnail .caption {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+
+
