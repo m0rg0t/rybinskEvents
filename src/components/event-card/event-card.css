@@ -20,3 +20,12 @@
     text-align: center;
     letter-spacing: normal;
 }
+.EventCard-SubTitle {
+    font-size: 20px;
+    margin-top: 0;
+}
+
+.EventCard-Content {
+    justify-content: normal;
+    width: 100%;
+}

@@ -12,6 +12,7 @@ const EventCard: React.FC<IEventCardProps> = ({event}: IEventCardProps) => {
     return (
         <div className={className()}>
             <h3 className={className('Title')}>{event.title}</h3>
+            <h4 className={className('SubTitle')}>{event.placeId}</h4>
             {/*<div className={className('Image')}>
                 {event.image && <img src={event.image} alt={event.title}/>}
             </div>*/}
@@ -20,7 +21,11 @@ const EventCard: React.FC<IEventCardProps> = ({event}: IEventCardProps) => {
                 <div className={className('fromTime')}><strong>Начало:</strong> {event.fromTime}</div>
                 <div className={className('toTime')}><strong>Конец:</strong> {event.toTime}</div>
                 {event.description &&
-                    <div className={className('Description')} dangerouslySetInnerHTML={{__html: event.description}}/>}
+                    (<>
+                        <strong>Описание:</strong><br/>
+                        <div className={className('Description')}
+                             dangerouslySetInnerHTML={{__html: event.description}}/>
+                    </>)}
             </div>
         </div>
     );
