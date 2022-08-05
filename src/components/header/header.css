@@ -6,6 +6,10 @@
     background: url('/images/bg.jpg') 100%;
 }
 
+.mbr-navbar__container {
+    background: rgba(255, 255, 255, 0.5) !important;
+}
+
 .Header, .Header .caption h3,
 Header *,
 #content5-92 .caption h3,

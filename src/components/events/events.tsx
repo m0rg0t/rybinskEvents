@@ -106,7 +106,7 @@ const Events = () => {
     }, [filter]);
 
     return <>
-        <div className={className("Search")}>
+        <div className={className("Search")} id={"search"}>
             <button onClick={() => setFilter(Filters.CURRENT)}>Текущие события</button>
             <button onClick={() => setFilter(Filters.FUTURE)}>Будущие события</button>
             <button onClick={() => setFilter(Filters.ALL)}>Все события</button>

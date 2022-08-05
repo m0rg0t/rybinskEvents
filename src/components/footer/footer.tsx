@@ -8,9 +8,10 @@ const Footer = () => {
 
         <div className="mbr-section__container container">
             <div className="mbr-footer mbr-footer--wysiwyg row">
-                <div className="col-sm-12">
+                <div className="col-sm-12" id={"contacts"}>
                     <p className="mbr-footer__copyright"></p><p>Все права защищены (c) 2022 Ленев Антон Сергеевич.</p>
-                    <p></p>
+                    <p><a target={"_blank"} href={"mailto:m0rg0t.Anton@gmail.com"}>m0rg0t.Anton@gmail.com</a></p>
+                    <p><a target={"_blank"} href={"https://vk.com/m0rg0t"}>https://vk.com/m0rg0t</a></p>
                 </div>
             </div>
         </div>
