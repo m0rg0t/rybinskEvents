@@ -1,135 +1,46 @@
-import events from "../../data/events";
-import EventCard from "../event-card/event-card";
-import * as React from "react";
-import {cn} from "@bem-react/classname";
+import events from '../../data/events';
+import EventCard from '../event-card/event-card';
+import * as React from 'react';
+import {cn} from '@bem-react/classname';
 import './events.css';
-import {useEffect, useLayoutEffect, useRef} from "react";
-import {IEvent} from "../../types/IEvent";
-import {format, parse} from "date-fns";
+import {format} from 'date-fns';
+import {filterEvents} from '../../lib/event-time';
+import type {IEvent} from '../../types/IEvent';
+import type {EventFilter} from '../../lib/event-time';
+import {mountEventMap} from '../../lib/event-map';
 
-enum Filters {
-    ALL = 'all',
-    CURRENT = 'current',
-    FUTURE = 'future',
-
-}
-
-const Events = () => {
+const Events = ({sourceEvents = events}: {sourceEvents?: IEvent[]} = {}) => {
     const className = cn('Events');
-    const yandexMap = useRef<any>(null);
-    const yandexMapLibrary = useRef<any>(null);
+    const mapContainer = React.useRef<HTMLDivElement>(null);
+    const [filter, setFilter] = React.useState<EventFilter>('all');
+    const [dateInput, setDateInput] = React.useState(() => format(new Date(), "yyyy-MM-dd'T'HH:mm"));
+    const [mapError, setMapError] = React.useState(false);
+    const mapKey = process.env.GATSBY_YANDEX_MAPS_API_KEY;
+    const filteredEvents = filterEvents(sourceEvents, filter, new Date(dateInput));
 
-    const [filter, setFilter] = React.useState<Filters>(Filters.ALL);
-    const [filteredEvents, setFilteredEvents] = React.useState<IEvent[]>(events);
-    const [currentDate, setCurrentDate] = React.useState<Date>(new Date());
-
-    const DATE_FORMAT = "yyyy-MM-dd'T'kk:mm";
-
-    useLayoutEffect(() => {
-            var script = document.createElement('script');
-            script.onload = function () {
-                //do stuff with the script
-                // @ts-ignore
-                const ymaps = window.ymaps;
-
-                console.log(ymaps);
-                if (ymaps && !yandexMap.current) {
-                    ymaps.ready(init);
-                    console.log("init");
-
-                    function init() {
-                        // Создание карты.
-                        let myMap = new ymaps.Map("map", {
-                            // Координаты центра карты.
-                            // Порядок по умолчанию: «широта, долгота».
-                            // Чтобы не определять координаты центра карты вручную,
-                            // воспользуйтесь инструментом Определение координат.
-                            center: [58.048640, 38.855711],
-                            // Уровень масштабирования. Допустимые значения:
-                            // от 0 (весь мир) до 19.
-                            zoom: 14
-                        });
-                        yandexMap.current = myMap;
-                        console.log("map", myMap);
-
-                        events.forEach(event => {
-                                const placemark = new ymaps.Placemark(
-                                    [event.lat, event.lng],
-                                    {
-                                        hintContent: event.title,
-                                        balloonContent: `<b>${event.title}</b><br/>${event.description}`
-                                    },
-                                    {
-                                        preset: 'islands#blueCircleDotIconWithCaption'
-                                    }
-                                );
-                                myMap.geoObjects.add(placemark);
-                            }
-                        );
-                    }
-                }
-
-            };
-            script.src = `https://api-maps.yandex.ru/2.1/?apikey=f7af4e10-532a-42fd-a93e-7e921555d860&lang=ru_RU`;
-            document.head.appendChild(script);
-        }, []
-    );
-
-    useEffect(() => {
-        switch (filter) {
-            case Filters.ALL:
-                setFilteredEvents(events);
-                break;
-            case Filters.CURRENT:
-                setFilteredEvents(events.filter(event => {
-                    const date = parse(event.date, "dd-MM-yyyy", new Date());
-                    const fromTime = parse(event.fromTime, 'kk:mm', date);
-                    const toTime = parse(event.toTime, 'kk:mm', date);
-                    const now = currentDate;
-                    console.log("currentDate", currentDate, now.getTime());
-                    return (toTime.getTime() >= now.getTime() && now.getTime() <= fromTime.getTime());
-                }))
-                break;
-            case Filters.FUTURE:
-                setFilteredEvents(events.filter(event => {
-                    const date = parse(event.date, "dd-MM-yyyy", new Date());
-                    const fromTime = parse(event.fromTime, 'kk:mm', date);
-                    const now = currentDate;
-                    console.log("currentDate", {currentDate, fromTime, date}, now.getTime() > fromTime.getTime(), now.getTime());
-                    return now.getTime() < fromTime.getTime();
-                }));
-                break;
-            default:
-                setFilteredEvents(events);
-                break;
-        }
-    }, [filter]);
+    React.useEffect(() => {
+        if (!mapContainer.current) return;
+        return mountEventMap({document, container: mapContainer.current, key: mapKey, events: sourceEvents,
+            getProvider: () => (window as Window & {ymaps?: unknown}).ymaps,
+            onError: () => setMapError(true)});
+    }, [mapKey, sourceEvents]);
 
     return <>
-        <div className={className("Search")} id={"search"}>
-            <button onClick={() => setFilter(Filters.CURRENT)}>Текущие события</button>
-            <button onClick={() => setFilter(Filters.FUTURE)}>Будущие события</button>
-            <button onClick={() => setFilter(Filters.ALL)}>Все события</button>
-
-            <div className={className("Search__map")}>
-                <label htmlFor={"date"}>Текущая дата</label>
-                <input type={"datetime-local"}
-                       onChange={(e) => {
-                           setCurrentDate(new Date(e.target.value));
-                           console.log(e.target.value)
-                       }}
-                       name={"date"}
-                       defaultValue={format(currentDate, DATE_FORMAT)}/>
+        <div className={className('Search')} id="search">
+            <button onClick={() => setFilter('current')}>Текущие события</button>
+            <button onClick={() => setFilter('future')}>Будущие события</button>
+            <button onClick={() => setFilter('all')}>Все события</button>
+            <div className={className('Search__map')}>
+                <label htmlFor="date">Текущая дата</label>
+                <input id="date" type="datetime-local" name="date" value={dateInput}
+                       onChange={event => setDateInput(event.target.value)}/>
             </div>
-
         </div>
-        <div className={className()} id={"events"}>
-            {filteredEvents.map(event => (
-                <EventCard event={event} key={`${event.placeId}_${event.title}`}/>
-            ))}
+        <div className={className()} id="events">
+            {filteredEvents.map((event, index) => <EventCard event={event} key={`${event.placeId}_${event.title}_${index}`}/>)}
         </div>
-        <div id={"map"} className={"Map"}></div>
-    </>
-}
-
+        {(!mapKey || mapError) && <p role="status">Карта недоступна. Адреса и время событий указаны в списке.</p>}
+        <div id="map" className="Map" ref={mapContainer}/>
+    </>;
+};
 export default Events;

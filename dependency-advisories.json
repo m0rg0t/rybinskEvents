@@ -1,0 +1,52 @@
+{
+  "checked_at": "2026-10-03",
+  "aggregate_affected_packages": {
+    "info": 0,
+    "low": 0,
+    "moderate": 5,
+    "high": 38,
+    "critical": 0,
+    "total": 43
+  },
+  "root_advisories": [
+    {
+      "package": "braces",
+      "severity": "high",
+      "advisory": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+      "title": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+      "affected_range": "<=3.0.3",
+      "installed": [
+        {
+          "path": "node_modules/braces",
+          "version": "3.0.3"
+        }
+      ]
+    },
+    {
+      "package": "file-type",
+      "severity": "moderate",
+      "advisory": "https://github.com/advisories/GHSA-5v7r-6r5c-r473",
+      "title": "file-type affected by infinite loop in ASF parser on malformed input with zero-size sub-header",
+      "affected_range": ">=13.0.0 <21.3.1",
+      "installed": [
+        {
+          "path": "node_modules/file-type",
+          "version": "16.5.4"
+        }
+      ]
+    },
+    {
+      "package": "http-cache-semantics",
+      "severity": "high",
+      "advisory": "https://github.com/advisories/GHSA-ch52-4w7c-c8xp",
+      "title": "http-cache-semantics max-stale handling can disclose cross-user cached responses",
+      "affected_range": "<=4.2.0",
+      "installed": [
+        {
+          "path": "node_modules/http-cache-semantics",
+          "version": "4.2.0"
+        }
+      ]
+    }
+  ]
+}
